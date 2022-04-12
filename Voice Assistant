@@ -93,13 +93,13 @@ def check(command):
     elif 'open' in command:
         talk('opening')
         if 'spotify' in command:
-            subprocess.call("C:\\Users\\PCuser\\AppData\\Local\\Microsoft\\WindowsApps\\SpotifyAB.SpotifyMusic_zpdnekdrzrea0")
+            subprocess.call("C:\\Users\\PCNAME\\AppData\\Local\\Microsoft\\WindowsApps\\SpotifyAB.SpotifyMusic_zpdnekdrzrea0")
         if 'python' in command:
-            subprocess.run("C:\\Users\\PCuser\\AppData\\Local\\Programs\\Python\\Python38\\Lib\\idlelib\\idle.bat")
+            subprocess.run("C:\\Users\\PCNAME\\AppData\\Local\\Programs\\Python\\Python38\\Lib\\idlelib\\idle.bat")
         if 'minecraft' in command:
-            subprocess.run('C:\\Users\\PCuser\\AppData\\Local\\Programs\\lunarclient\\Lunar Client.exe')
+            subprocess.run('C:\\Users\\PCNAME\\AppData\\Local\\Programs\\lunarclient\\Lunar Client.exe')
         if 'discord' in command:
-            subprocess.run('C:\\Users\\PCuser\\AppData\\Local\\Discord\\app-1.0.9004')
+            subprocess.run('C:\\Users\\PCNAME\\AppData\\Local\\Discord\\app-1.0.9004')
     elif 'kali' in command:
         os.system('wsl && kex --win -s')
     elif 'quit' in command:
