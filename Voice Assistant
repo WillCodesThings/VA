@@ -1,0 +1,116 @@
+from distutils.log import error
+from re import sub
+from struct import pack
+from tkinter.ttk import Style
+import speech_recognition as sr
+import os
+import datetime
+import pyttsx3
+import pywhatkit
+import wikipedia
+import random
+import pyautogui
+import subprocess
+import pyjokes
+listener = sr.Recognizer()
+engine = pyttsx3.init()
+def talk(text):
+    engine.say(text)
+    engine.runAndWait()
+voice = engine.getProperty('voices')
+engine.setProperty('voice', voice[0].id)
+def wolfbot():
+    try:
+        with sr.Microphone() as scource:
+            print('listening')
+            voice = listener.listen(scource)
+            command = listener.recognize_google(voice)
+            command = command.replace('wolf', '')
+            if command == None:
+                pass
+            else:
+                return command.lower()
+    except:
+        pass
+
+def check(command):
+    if 'install' in command:
+        package=command.replace('install', '')
+        package = package.replace(' ','')
+        package = package.lower()
+        if 'pi' in package:
+            package = package.replace('pi', 'py')
+        if 'pye' in package:
+            package = package.replace('pye', 'py')
+        if 'dash' in command:
+            package = package.replace('dash', '-')
+        if 'space' in command:
+            package = package.replace('space', ' ')
+        else:
+            package = package.replace('-', '')
+        talk('Installing')
+        os.system(f'pip3 install {package}')
+    elif 'how are you doing' in command:
+        feelings = ['good','better than good', 'great', 'horrible', 'amazing', 'ready to help you']
+        feel = random.choice(feelings)
+        talk(feel)
+    elif 'play' in command:
+        song = command.replace('play', '')
+        talk('playing' + song)
+        pywhatkit.playonyt(song)
+    elif 'search' in command:
+        nonthing = command.replace('search','')
+        talk('searching')
+        pywhatkit.search(nonthing)
+    elif 'wiki' in command:
+        nonthing = command.split(' ')
+        ting = nonthing[-1]
+        talk('Searching wikipedia')
+        wiki = wikipedia.summary(ting,1)
+        if wiki == None:
+            talk("Sorry didn't find anything")
+        else:
+            talk("Here's what I found")
+            talk(wiki)
+    elif 'joke' in command:
+        talk(pyjokes.get_jokes(en,'neutral'))
+    elif 'time' in command:
+        time = datetime.datetime.now().strftime('%I:%M%p')
+        talk(f'Current time is, {time}')
+    elif 'how do i' in command:
+        talk("Here's How!")
+        try:
+            os.system('pip install howdoi')
+        except:
+            pass
+        a = command.replace('how do i', '')
+        output = os.popen(f'howdoi {a}').readlines()
+        for i in output:
+            output = output.replace('\n', '')
+        talk(i)
+    elif 'updated' in command:
+        talk('Yes.')
+    elif 'open' in command:
+        talk('opening')
+        if 'spotify' in command:
+            subprocess.call("C:\\Users\\PCuser\\AppData\\Local\\Microsoft\\WindowsApps\\SpotifyAB.SpotifyMusic_zpdnekdrzrea0")
+        if 'python' in command:
+            subprocess.run("C:\\Users\\PCuser\\AppData\\Local\\Programs\\Python\\Python38\\Lib\\idlelib\\idle.bat")
+        if 'minecraft' in command:
+            subprocess.run('C:\\Users\\PCuser\\AppData\\Local\\Programs\\lunarclient\\Lunar Client.exe')
+        if 'discord' in command:
+            subprocess.run('C:\\Users\\PCuser\\AppData\\Local\\Discord\\app-1.0.9004')
+    elif 'kali' in command:
+        os.system('wsl && kex --win -s')
+    elif 'quit' in command:
+        talk('quitting')
+        os.system('taskkill /pid python.exe /f')
+def run():
+    command = wolfbot()
+    if command == None:
+        pass
+    else:
+        check(command)
+
+while True:
+    run()
